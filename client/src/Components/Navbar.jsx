@@ -1,15 +1,17 @@
+import { Link } from "react-router-dom"
+
 function Navbar() {
   return (
     <div>
-      <header className='pl-6 pt-4 pr-4 flex justify-between'>
+      <header className='pr-4 flex justify-between'>
 
         {/* Logo */}
-        <a href="" className="flex items-center gap-1">
+        <Link to = {'/'} className="flex items-center gap-1">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 -rotate-90 text-red-600">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
           </svg>
           <span className='font-bold text-xl text-red-600'>airbnb</span>
-        </a>
+        </Link>
 
         {/* Search Bar */}
         <div className="searchbar gap-4 flex border border-gray-600 rounded-full py-2 px-4 shadow-md shadow-gray-300">
@@ -25,7 +27,7 @@ function Navbar() {
         </div>
 
         {/* Contact and Profile */}
-        <div className='searchbar flex gap-2 border border-gray-600 rounded-full py-2 px-4 items-center'>
+        <Link to = {'/login'} className='flex gap-2 border border-gray-600 rounded-full py-2 px-4 items-center'>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
             <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
           </svg>
@@ -35,7 +37,7 @@ function Navbar() {
             </svg>
 
           </div>
-        </div>
+        </Link>
 
       </header>
     </div>

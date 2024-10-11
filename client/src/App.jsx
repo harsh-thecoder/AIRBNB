@@ -1,13 +1,15 @@
 import './App.css'
-import Navbar from './Components/Navbar'
 import {Route,Routes} from 'react-router-dom'
 import LoginPage from './Pages/LoginPage'
 import Layout from './Components/Layout'
 import IndexPage from './Pages/IndexPage'
 import RegisterPage from './Pages/RegisterPage'
+import UserContextProvider from './Components/UserContext'
+
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.withCredentials = true;
 
 function App() {
 

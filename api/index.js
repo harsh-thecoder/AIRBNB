@@ -52,7 +52,7 @@ app.post('/login', async (req,res) => {
                 {
                     throw err;
                 }
-                res.cookie('token',token).json("Correct Password");  
+                res.cookie('token',token).json(userDoc);  
             });
         }
         else{

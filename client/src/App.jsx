@@ -1,5 +1,5 @@
 import './App.css'
-import {Route,Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import LoginPage from './Pages/LoginPage'
 import Layout from './Components/Layout'
 import IndexPage from './Pages/IndexPage'
@@ -14,15 +14,15 @@ axios.defaults.withCredentials = true;
 function App() {
 
   return (
-    <div>
-       <Routes>
-         <Route path='/' element = {<Layout/>}>
-         <Route index element = {<IndexPage/>} /> 
-         <Route path = '/login' element = {<LoginPage/>} />
-         <Route path = '/register' element = {<RegisterPage/>} />
+    <UserContextProvider>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<IndexPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
         </Route>
-       </Routes>
-    </div>
+      </Routes>
+    </UserContextProvider>
   )
 }
 

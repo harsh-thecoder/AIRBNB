@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 function AccomodationPage() {
+  
   const { action } = useParams();
-  console.log(action);
+  const [title,setTitle] = useState('');
+  const [address,setAddress] = useState('');
+  const [image,addImage] = useState([]);
+  const [photlink,setPhotolink] = useState('');
+  const [description,setDescription] = useState('');
+  const [perks,setPerks] = useState([]);  
+  const [extrainfo,setExtrainfo] = useState('');
+  const [checkin,setCheckin] = useState('');
+  const [checkout,setCheckout] = useState('');
+  const [maxguest,setMaxguest] = useState(1);   
+  
   return (
     <div>
       {action !== 'new' && (
@@ -77,6 +88,31 @@ function AccomodationPage() {
                 <span>Private Entrance</span>
               </label>
             </div>
+
+            <h2 className='mt-6 text-2xl'>Extra Info</h2>
+            <p className='text-sm'>Rules and Regulations to be followed</p>
+            <textarea />
+
+            <h2 className='mt-4 text-2xl'>Check in & out times</h2>
+            <p className='text-sm'>Make sure to have some time for cleaning of Apartment before giving key to new customers</p>
+            <div className='grid sm:grid-cols-3 gap-2'>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Check in Time</h3>
+                <input type="text" placeholder='Ex: 16:00' />
+              </div>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Check out Time</h3>
+                <input type="text" placeholder='Ex: 18:00' />
+              </div>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Maximum Guests</h3>
+                <input type="text" placeholder='Ex: 4 to 5'/>
+              </div>
+            </div>
+
+             <div className='flex justify-center'>
+                 <button className='primary max-w-sm my-4'>Save</button>
+             </div>
 
           </form>
         </div>

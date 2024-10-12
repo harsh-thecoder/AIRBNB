@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Perks from '../Components/Perks';
 import CheckinCheckout from '../Components/CheckinCheckout';
+import axios from 'axios'
 
 function AccomodationPage() {
   
@@ -9,7 +10,7 @@ function AccomodationPage() {
   const [title,setTitle] = useState('');
   const [address,setAddress] = useState('');
   const [image,addImage] = useState([]);
-  const [photlink,setPhotolink] = useState('');
+  const [photolink,setPhotolink] = useState('');
   const [description,setDescription] = useState('');
   const [perks,setPerks] = useState([]);  
   const [extrainfo,setExtrainfo] = useState('');
@@ -34,8 +35,9 @@ function AccomodationPage() {
     )
   }
 
-  function addPhotoylink(){
-
+  async function addPhotoylink(ev){
+      ev.preventDefault();
+      await axios.post('/upload-by-link',{link:photolink })
   }
 
   return (
@@ -61,9 +63,9 @@ function AccomodationPage() {
 
             {getInput('Photos','Upload attractive photos to attract the worldwide tourists')}
             <div className='flex gap-2'>
-              <input type="text" value={photlink} onChange={e => setPhotolink(e.target.value)}
+              <input type="text" value={photolink} onChange={e => setPhotolink(e.target.value)}
                placeholder='Add Image using a Link ... jpg' />
-              <button className='bg-gray-300 p-4 rounded-2xl'>Add&nbsp;Photo</button>
+              <button onClick={addPhotoylink} className='bg-gray-300 p-4 rounded-2xl'>Add&nbsp;Photo</button>
             </div>
             <div className='mt-3 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-2xl p-6 text-gray-600'>
               <button className='flex justify-center border bg-transparent rounded-2xl p-6'>

@@ -4,7 +4,7 @@ import LoginPage from './Pages/LoginPage'
 import Layout from './Components/Layout'
 import IndexPage from './Pages/IndexPage'
 import RegisterPage from './Pages/RegisterPage'
-import UserContextProvider from './Components/UserContext'
+import { UserContextProvider,UserContext } from './Components/UserContext'
 
 import axios from 'axios'
 

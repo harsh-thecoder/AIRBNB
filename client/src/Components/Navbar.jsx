@@ -1,6 +1,9 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { UserContext } from "./UserContext"
 
 function Navbar() {
+  const {user} = useContext(UserContext);
   return (
     <div>
       <header className='pr-4 flex justify-between'>
@@ -37,8 +40,14 @@ function Navbar() {
             </svg>
 
           </div>
-        </Link>
+          
+          {!!user && (
+             <div>
+                {user.name}
+             </div>
+          )}
 
+        </Link>
       </header>
     </div>
   )

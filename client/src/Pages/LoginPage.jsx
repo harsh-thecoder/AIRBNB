@@ -14,11 +14,11 @@ function LoginPage() {
   async function user_login(e) {
     e.preventDefault();
     try{
-      const userInfo = await axios.post('/login', {
+      const {data} = await axios.post('/login', {
         email,
         password,
       });
-      setUser(userInfo);
+      setUser(data);
       alert('Login Successfull');
       setRediect(true);
     }

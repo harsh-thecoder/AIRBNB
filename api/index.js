@@ -85,6 +85,10 @@ app.get('/profile',(req,res) => {
     }
 })
 
+// app.get('/account',(req,res) => {
+
+// })
+
 app.listen(4000);
 
 // 3JVEtiMPSWEKsh21

@@ -9,7 +9,7 @@ function AccomodationPage() {
   const { action } = useParams();
   const [title,setTitle] = useState('');
   const [address,setAddress] = useState('');
-  const [image,addImage] = useState([]);
+  const [addimage,setAddImage] = useState([]);
   const [photolink,setPhotolink] = useState('');
   const [description,setDescription] = useState('');
   const [perks,setPerks] = useState([]);  
@@ -37,7 +37,11 @@ function AccomodationPage() {
 
   async function addPhotoylink(ev){
       ev.preventDefault();
-      await axios.post('/upload-by-link',{link:photolink })
+     const {data:filename} = await axios.post('/upload-by-link',{link:photolink })
+     setAddImage(prev => {
+       return [...prev,filename];
+     })
+     setPhotolink('');
   }
 
   return (
@@ -68,6 +72,11 @@ function AccomodationPage() {
               <button onClick={addPhotoylink} className='bg-gray-300 p-4 rounded-2xl'>Add&nbsp;Photo</button>
             </div>
             <div className='mt-3 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-2xl p-6 text-gray-600'>
+              {addimage.length > 0 && addimage.map(link => (
+                    <div>
+                        {link}
+                    </div>
+              ))}
               <button className='flex justify-center border bg-transparent rounded-2xl p-6'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />

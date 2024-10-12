@@ -6,12 +6,14 @@ const app = express();
 const user = require('./models/user.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 const jwtSecret = "qebcierbcervcrefwfvcrvre;"
 
 const bcryptSalt  = bcrypt.genSaltSync(12);
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(cors({
     credentials: true,
@@ -47,7 +49,9 @@ app.post('/login', async (req,res) => {
         const passOk =  bcrypt.compareSync(password,userDoc.password);
         if(passOk)
         {
-            jwt.sign({email : userDoc.email,id : userDoc._id},jwtSecret,{},(err,token) => {
+            jwt.sign({email : userDoc.email,
+                id : userDoc._id},
+                jwtSecret,{},(err,token) => {
                 if(err)
                 {
                     throw err;
@@ -61,6 +65,23 @@ app.post('/login', async (req,res) => {
     }
     else{
         res.json("User not found");
+    }
+})
+
+app.get('/profile',(req,res) => {
+    const {token} = req.cookies;
+    if(token){
+        jwt.verify(token,jwtSecret,{},async (err,userData) => { // here userdata is nothing but token only
+            if(err){
+                throw err;
+            }
+            const {name,email,contact,_id} = await user.findById(userData.id);
+            res.json({name,email,contact,_id});
+        })
+    }
+    else
+    {
+        res.json(null);
     }
 })
 

@@ -71,13 +71,13 @@ function AccomodationPage() {
                placeholder='Add Image using a Link ... jpg' />
               <button onClick={addPhotoylink} className='bg-gray-300 p-4 rounded-2xl'>Add&nbsp;Photo</button>
             </div>
-            <div className='mt-3 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 text-2xl p-6 text-gray-600'>
+            <div className='mt-3 grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-6 text-2xl p-6 text-gray-600'>
               {addimage.length > 0 && addimage.map(link => (
-                    <div>
-                        {link}
+                    <div className='flex'>
+                        <img className='rounded-2xl' src={'http://localhost:4000/uploads/'+link} alt="" />
                     </div>
               ))}
-              <button className='flex justify-center border bg-transparent rounded-2xl p-6'>
+              <button className='flex items-center justify-center border bg-transparent rounded-2xl p-6'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
                 </svg>Upload&nbsp;here</button>

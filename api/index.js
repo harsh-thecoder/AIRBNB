@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
+const multer = require('multer');
 
 const jwtSecret = "qebcierbcervcrefwfvcrvre;"
 
@@ -74,14 +75,25 @@ app.post('/logout',(req,res) => {
     res.cookie('token','').json(true);
 })
 
-app.post('/upload-by-link',async (req,res) => {
-    const {link} = req.body;
+app.post('/upload-by-link', async (req, res) => {
+    const { link } = req.body;
     const newName = 'photo' + Date.now() + '.jpg';
-    await imageDownloader.image({
-        url: link,
-        dest: __dirname + '/uploads/' + newName
-    })
-    res.json(newName);
+    try {
+        await imageDownloader.image({
+            url: link,
+            dest: __dirname + '/uploads/' + newName,
+            timeout: 20000, // Increase timeout to 20s (optional)
+        });
+        res.json(newName);
+    } catch (err) {
+        res.status(500).json({ error: 'Image download failed', details: err.message });
+    }
+});
+
+
+const photosMiddleware = multer({dest:'uploads/'});    
+app.post('/upload', photosMiddleware.array('photos',100), (req,res) => {
+    res.json(req.files);
 })
 
 app.get('/profile',(req,res) => {

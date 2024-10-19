@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
+const Place = require('./models/Place.js')
 
 const jwtSecret = "qebcierbcervcrefwfvcrvre;"
 
@@ -113,6 +114,29 @@ app.get('/profile',(req,res) => {
     }
 })
 
+app.post('/accommodations',(req,res) => {
+    const {token} = req.cookies;
+    const {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest} = req.body;
+    
+    jwt.verify(token,jwtSecret,{},async (err,userData) => { // here userdata is nothing but token only
+        if(err){
+            throw err;
+        }
+        const placeDoc = await Place.create({
+           owner: userData.id,
+           title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest,
+       });
+       res.json(placeDoc);
+    })
+})
+
+app.get('/accommodations', (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token,jwtSecret,{},async (err,userData) => {
+        const {id} = userData;
+        res.json(await Place.find({owner:id}));
+    });
+})
 
 app.listen(4000);
 

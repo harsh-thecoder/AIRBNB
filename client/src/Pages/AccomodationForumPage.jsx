@@ -38,7 +38,7 @@ function AccomodationForumPage() {
 
    async function addNewPlace(ev) {
        ev.preventDefault(); 
-       const {placeData} = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
+       const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
        await axios.post('/accommodations', placeData);
        setRedirect(true);
    }

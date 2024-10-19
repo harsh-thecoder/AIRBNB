@@ -24,7 +24,7 @@ function AccomodationPage() {
         <div>
           {places.length > 0 && places.map(place => (
             <div>
-              {places.title}
+              {place.title}
             </div>
           ))}
         </div>

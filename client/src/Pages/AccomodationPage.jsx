@@ -21,9 +21,9 @@ function AccomodationPage() {
             Add new Place
           </Link>
         </div>
-        <div>
+        <div className='mt-4'>
           {places.length > 0 && places.map(place => (
-            <div>
+            <div className='bg-gray-200 my-2 p-4 rounded-2xl'>
               {place.title}
             </div>
           ))}

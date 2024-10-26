@@ -67,12 +67,24 @@ function AccomodationForumPage() {
             {getInput('Perks', 'Select your Perks')}
             <Perks selected={perks} onChange={setPerks} />
 
-            <h2 className='mt-6 text-2xl'>Extra Info</h2>
-            <p className='text-sm'>Rules and Regulations to be followed</p>
+            {getInput('Extra Info', 'Rules and Regulations to be followed')}
             <textarea value={extrainfo} onChange={e => setExtrainfo(e.target.value)} placeholder='Type here...' />
 
             {getInput('Check in & out times', 'Make sure to have some time for cleaning of Apartment before giving key to new customers')}
-            <CheckinCheckout {...{ checkin, checkout, setCheckin, setCheckout, maxguest, setMaxguest }} />
+            <div className='grid sm:grid-cols-3 gap-2'>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Check in Time</h3>
+                <input value={checkin} onChange={e=> setCheckin(e.target.value)} type="text" placeholder='Ex: 16:00' />
+              </div>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Check out Time</h3>
+                <input value={checkout} onChange={e=> setCheckout(e.target.value)} type="text" placeholder='Ex: 18:00' />
+              </div>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Maximum Guests</h3>
+                <input value={maxguest} onChange={e=> setMaxguest(e.target.value)} type="text" placeholder='Ex: 4 to 5'/>
+              </div>
+            </div>
 
             <div className='flex justify-center'>
               <button className='primary max-w-sm my-4'>Save</button>

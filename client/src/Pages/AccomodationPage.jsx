@@ -15,17 +15,25 @@ function AccomodationPage() {
       <AccountNavigation/>
         <div className='text-center mt-6'>
           <Link className=' inline-flex bg-primary text-white py-2 px-4 rounded-full gap-1' to={'/account/accommodations/new'}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             Add new Place
           </Link>
         </div>
         <div className='mt-4'>
-          {places.length > 0 && places.map(place => (
-            <div className='bg-gray-200 my-2 p-4 rounded-2xl'>
-              {place.title}
-            </div>
+          {places.length > 0 && places.map((place,index) => (
+            <Link to = {'/account/accommodations/'+place._id} className='flex cursor-pointer gap-4 bg-gray-200 my-2 p-4 rounded-2xl'>
+              <div className='w-32 h-32 bg-gray-500'>
+                   {place.photos.length > 0 && (
+                    <img src={place.photos[0]} alt="" />
+                   )}
+              </div>
+              <div className=''>
+                  <h2 className='text-xl'>{place.title}</h2>
+                  <p className='text-sm mt-2'>{place.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
     </div>

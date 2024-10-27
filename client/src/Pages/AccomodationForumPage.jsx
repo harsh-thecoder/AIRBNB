@@ -56,15 +56,17 @@ function AccomodationForumPage() {
   }
 
    async function savePlace(ev) {
-       ev.preventDefault();
+     ev.preventDefault();
+     const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
        if(id){
         // update
-        const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
-        await axios.put('/accommodations', id, ...placeData);
-       } 
+        await axios.put('/accommodations',{
+           id, ...placeData
+          }); 
+          setRedirect(true);
+        }
        else{
         // newplace
-        const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
         await axios.post('/accommodations', placeData);
         setRedirect(true);
        }

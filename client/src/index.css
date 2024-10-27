@@ -7,7 +7,7 @@ input[type = "text"], input[type = "password"], input[type = "email"],textarea,i
 }
 
 textarea{
-    height: 200px;
+    height: 100px;
 }
 
 button.primary { 

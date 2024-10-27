@@ -147,9 +147,18 @@ app.get('/accommodations/:id', async (req,res) => {
 app.put('/accommodations',async (req,res) => {
     const {token} = req.cookies;
     const {id,title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest} = req.body; 
-    const placInfo = await Place.findById(id);        
     jwt.verify(token,jwtSecret,{},async (err,userData) => {
-         
+        if(err){
+            throw err;
+        }
+        const placeInfo = await Place.findById(id);         
+        if(userData.id === placeInfo.owner.toString()){
+            placeInfo.set({
+                title,address,photos:addimage,description,perks,extrainfo,checkin,checkout,maxguest,
+            })
+            await placeInfo.save();  
+            res.json('Info Saved');
+        } 
     }) 
 })
 

@@ -24,9 +24,9 @@ function AccomodationPage() {
         <div className='mt-4'>
           {places.length > 0 && places.map((place,index) => (
             <Link to = {'/account/accommodations/'+place._id} className='flex cursor-pointer gap-4 bg-gray-200 my-2 p-4 rounded-2xl'>
-              <div className='w-32 h-32 bg-gray-500'>
+              <div className='w-32 h-32 flex bg-gray-500'>
                    {place.photos.length > 0 && (
-                    <img src={place.photos[0]} alt="" />
+                    <img className='object-cover' src ={'http://localhost:4000/uploads/' + place.photos[0]} alt="" />
                    )}
               </div>
               <div className=''>

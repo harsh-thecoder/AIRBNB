@@ -1,13 +1,14 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Perks from '../Components/Perks';
 import CheckinCheckout from '../Components/CheckinCheckout';
 import axios from 'axios'
 import PhotosUploader from '../Components/PhotosUploader';
 import AccountNavigation from '../Components/AccountNavigation';
-import { Navigate } from 'react-router-dom';
+import { Navigate,useParams } from 'react-router-dom';
 
 function AccomodationForumPage() {
+  const {id} = useParams();
   const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
   const [addimage, setAddImage] = useState([]);
@@ -18,6 +19,24 @@ function AccomodationForumPage() {
   const [checkout, setCheckout] = useState('');
   const [maxguest, setMaxguest] = useState(1);
   const [redirect,setRedirect] = useState(false);
+  useEffect(() => {
+     if(!id){
+      return; 
+     }
+     axios.get('/accommodations/'+id).then(response => {
+       const {data} = response;
+       setTitle(data.title);
+       setAddress(data.address);
+       setAddImage(data.photos);
+       setDescription(data.description);
+       setPerks(data.perks);
+       setExtrainfo(data.extrainfo);
+       setCheckin(data.checkin);
+       setCheckout(data.checkout);
+       setMaxguest(data.maxguest);
+     })
+  }, [id])
+  
 
   function inputHeader(text) {
     return (<h2 className='mt-4 text-2xl'>{text}</h2>);
@@ -36,11 +55,19 @@ function AccomodationForumPage() {
     )
   }
 
-   async function addNewPlace(ev) {
-       ev.preventDefault(); 
-       const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
-       await axios.post('/accommodations', placeData);
-       setRedirect(true);
+   async function savePlace(ev) {
+       ev.preventDefault();
+       if(id){
+        // update
+        const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
+        await axios.put('/accommodations', id, ...placeData);
+       } 
+       else{
+        // newplace
+        const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
+        await axios.post('/accommodations', placeData);
+        setRedirect(true);
+       }
    }
 
    if(redirect) {
@@ -50,7 +77,7 @@ function AccomodationForumPage() {
   return (
     <div>
           <AccountNavigation/>
-          <form onSubmit={addNewPlace}>
+          <form onSubmit={savePlace}>
             {getInput('Title', 'Give an short,catchy and attractive title for your Place')}
             <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder='title, Ex : My most comfort place' />
 

@@ -76,9 +76,19 @@ app.post('/logout',(req,res) => {
     res.cookie('token','').json(true);
 })
 
+const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
+
+
 app.post('/upload-by-link', async (req, res) => {
     const { link } = req.body;
     const newName = 'photo' + Date.now() + '.jpg';
+
+    if (link.startsWith('http://')) {
+        link = link.replace('http://', 'https://');
+    }
+
     try {
         await imageDownloader.image({
             url: link,

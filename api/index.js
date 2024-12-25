@@ -126,7 +126,7 @@ app.get('/profile',(req,res) => {
 
 app.post('/accommodations',(req,res) => {
     const {token} = req.cookies;
-    const {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest} = req.body;
+    const {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest,price} = req.body;
     
     jwt.verify(token,jwtSecret,{},async (err,userData) => { // here userdata is nothing but token only
         if(err){
@@ -134,14 +134,14 @@ app.post('/accommodations',(req,res) => {
         }
         const placeDoc = await Place.create({
            owner: userData.id,
-           title,address,photos:addimage,description,perks,extrainfo,checkin,checkout,maxguest,
+           title,address,photos:addimage,description,perks,extrainfo,checkin,checkout,maxguest,price,
        });
        res.json(placeDoc);
     })
 })
 
 
-app.get('/accommodations', (req,res) => {
+app.get('/user-accommodations', (req,res) => {
     const {token} = req.cookies;
     jwt.verify(token,jwtSecret,{},async (err,userData) => {
         const {id} = userData;
@@ -156,20 +156,24 @@ app.get('/accommodations/:id', async (req,res) => {
 
 app.put('/accommodations',async (req,res) => {
     const {token} = req.cookies;
-    const {id,title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest} = req.body; 
+    const {id,title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest,price} = req.body; 
     jwt.verify(token,jwtSecret,{},async (err,userData) => {
         if(err){
             throw err;
         }
-        const placeInfo = await Place.findById(id);         
+        const placeInfo = await Place.findById(id);      
         if(userData.id === placeInfo.owner.toString()){
             placeInfo.set({
-                title,address,photos:addimage,description,perks,extrainfo,checkin,checkout,maxguest,
+                title,address,photos:addimage,description,perks,extrainfo,checkin,checkout,maxguest,price,
             })
             await placeInfo.save();  
             res.json('Info Saved');
         } 
     }) 
+})
+
+app.get('/accommodations',async (req,res) => {
+    res.json( await Place.find() );
 })
 
 app.listen(4000);

@@ -6,7 +6,7 @@ import axios from 'axios'
 function AccomodationPage() {
   const [places,setPlaces] = useState([]);
   useEffect(() => {
-     axios.get('/accommodations').then(({data}) => {
+     axios.get('/user-accommodations').then(({data}) => {
       setPlaces(data);
      })
   },[])

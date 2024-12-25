@@ -19,6 +19,7 @@ function AccomodationForumPage() {
   const [checkout, setCheckout] = useState('');
   const [maxguest, setMaxguest] = useState(1);
   const [redirect,setRedirect] = useState(false);
+  const [price,setPrice] = useState(100);
   useEffect(() => {
      if(!id){
       return; 
@@ -34,6 +35,7 @@ function AccomodationForumPage() {
        setCheckin(data.checkin);
        setCheckout(data.checkout);
        setMaxguest(data.maxguest);
+       setPrice(data.price);
      })
   }, [id])
   
@@ -57,7 +59,7 @@ function AccomodationForumPage() {
 
    async function savePlace(ev) {
      ev.preventDefault();
-     const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest};
+     const placeData = {title,address,addimage,description,perks,extrainfo,checkin,checkout,maxguest,price};
        if(id){
         // update
         await axios.put('/accommodations',{
@@ -100,7 +102,7 @@ function AccomodationForumPage() {
             <textarea value={extrainfo} onChange={e => setExtrainfo(e.target.value)} placeholder='Type here...' />
 
             {getInput('Check in & out times', 'Make sure to have some time for cleaning of Apartment before giving key to new customers')}
-            <div className='grid sm:grid-cols-3 gap-2'>
+            <div className='grid sm:grid-cols-2 md:grid-cols-4 gap-2'>
               <div>
                 <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Check in Time</h3>
                 <input value={checkin} onChange={e=> setCheckin(e.target.value)} type="text" placeholder='Ex: 16:00' />
@@ -112,6 +114,10 @@ function AccomodationForumPage() {
               <div>
                 <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Maximum Guests</h3>
                 <input value={maxguest} onChange={e=> setMaxguest(e.target.value)} type="text" placeholder='Ex: 4 to 5'/>
+              </div>
+              <div>
+                <h3 className='mt-2 -mb-1 border rounded-2xl p-2'>Price per night</h3>
+                <input value={price} onChange={e=> setPrice(e.target.value)} type="text" placeholder='Ex: 5000 - 50000'/>
               </div>
             </div>
 

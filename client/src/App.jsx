@@ -8,6 +8,7 @@ import { UserContextProvider,UserContext } from './Components/UserContext'
 import AccountPage from './Pages/AccountPage'
 import AccomodationPage from './Pages/AccomodationPage'
 import AccomodationForumPage from './Pages/AccomodationForumPage'
+import SingleAccommodationPage from './Pages/SingleAccommodationPage'
 
 import axios from 'axios'
 
@@ -27,6 +28,7 @@ function App() {
           <Route path='/account/accommodations' element= {<AccomodationPage/>} />
           <Route path='/account/accommodations/new' element= {<AccomodationForumPage/>} />
           <Route path='/account/accommodations/:id' element= {<AccomodationForumPage/>} />
+          <Route path='/accommodation/:id' element = {<SingleAccommodationPage/>}/>
         </Route>
       </Routes>
     </UserContextProvider>
